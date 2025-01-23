@@ -1,20 +1,43 @@
 class MovieDetailModel {
-  final String homepage;
   final String title;
-  final int runtime;
   final String overview;
-  final String backdrop;
+  final String posterPath;
+  final String backdropPath;
+  final int runtime;
   final double voteAverage;
-  final List<String> genres;
+  final int voteCount;
+  final String releaseDate;
+  final String tagline;
+  final int budget;
+  final int revenue;
+  final String homepage;
+  final List<Genre> genres;
+  final bool isAdult; // 성인 영화 여부
 
   MovieDetailModel.fromJson(Map<String, dynamic> json)
-      : homepage = json['homepage'],
-        title = json['title'],
+      : title = json['title'],
         overview = json['overview'],
-        runtime = json['runtime'],
+        posterPath = json['poster_path'] ?? '',
+        backdropPath = json['backdrop_path'] ?? '',
+        runtime = json['runtime'] ?? 0,
         voteAverage = (json['vote_average'] as num).toDouble(),
-        backdrop = json['backdrop_path'],
+        voteCount = json['vote_count'],
+        releaseDate = json['release_date'] ?? 'Unknown',
+        tagline = json['tagline'] ?? '',
+        budget = json['budget'] ?? 0,
+        revenue = json['revenue'] ?? 0,
+        homepage = json['homepage'] ?? '',
         genres = (json['genres'] as List<dynamic>)
-            .map((genre) => genre['name'] as String)
-            .toList();
+            .map((genre) => Genre.fromJson(genre))
+            .toList(),
+        isAdult = json['adult'] ?? false; // 성인 영화 여부
+}
+
+class Genre {
+  final int id;
+  final String name;
+
+  Genre.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        name = json['name'];
 }
