@@ -1,10 +1,10 @@
 class MoviesModel {
-  final String id; // String으로 정의
+  final String id;
   final String title;
   final String poster;
 
   MoviesModel.fromJson(Map<String, dynamic> json)
-      : id = json['id'].toString(), // int를 String으로 변환
+      : id = json['id'].toString(),
         title = json['title'],
         poster = json['poster_path'] ?? '';
 }
